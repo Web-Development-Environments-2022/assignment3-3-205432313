@@ -9,8 +9,15 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
+              <div>Made for {{ recipe.servings }} people</div><!-- {{ recipe.servings }} -->
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <div v-if="recipe.vegan">It Is vegan!</div>
+              <div v-if="!recipe.vegan">Unfortunately not vegan</div>
+              <div v-if="recipe.vegetarian">Vegetarian recipe</div>
+              <div v-if="!recipe.vegetarian">not Vegetarian</div>
+              <div v-if="recipe.glutenFree">Gluten Free recipe</div>
+              <div v-if="!recipe.glutenFree">It is not gluten free</div>
             </div>
             Ingredients:
             <ul>
@@ -54,12 +61,14 @@ export default {
       // response = this.$route.params.response;
 
       try {
+        let strId = this.$route.params.recipeId.toString();
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/info",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
+          // this.$root.store.server_domain + "/recipes/info",
+          "http://localhost:3000" + "/recipes/" + strId//,
+          // {
+          //   params: { id: this.$route.params.recipeId }
+          // }
         );
 
         // console.log("response.status", response.status);
@@ -78,7 +87,7 @@ export default {
         readyInMinutes,
         image,
         title
-      } = response.data.recipe;
+      } = response.data;
 
       let _instructions = analyzedInstructions
         .map((fstep) => {

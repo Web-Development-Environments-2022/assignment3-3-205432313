@@ -25,6 +25,56 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+
+
+      <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="first name:"
+        label-for="firstname"
+      >
+        <b-form-input
+          id="firstname"
+          v-model="$v.form.firstname.$model"
+          type="text"
+          :state="validateState('firstname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+          firstname is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.firstname.alpha">
+          firstname alpha
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+
+       <b-form-group
+        id="input-group-lastname"
+        label-cols-sm="3"
+        label="last name:"
+        label-for="lastname"
+      >
+        <b-form-input
+          id="lastname"
+          v-model="$v.form.lastname.$model"
+          type="text"
+          :state="validateState('lastname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastname.required">
+          lastname is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.lastname.alpha">
+          lastname alpha
+        </b-form-invalid-feedback>
+      </b-form-group> 
+
+
+
+
+
+
+
+
       <b-form-group
         id="input-group-country"
         label-cols-sm="3"
@@ -41,6 +91,28 @@
           Country is required
         </b-form-invalid-feedback>
       </b-form-group>
+
+
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="lastname"
+          v-model="$v.form.email.$model"
+          type="text"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          email is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.email.email">
+          illegal mail
+        </b-form-invalid-feedback>
+      </b-form-group> 
 
       <b-form-group
         id="input-group-Password"
@@ -136,8 +208,8 @@ export default {
     return {
       form: {
         username: "",
-        firstName: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         country: null,
         password: "",
         confirmedPassword: "",
@@ -156,8 +228,20 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+      lastname: {
+        required,
+        alpha
+      },
+      firstname:{
+        required,
+        alpha
+      },
       country: {
         required
+      },
+      email:{
+        required,
+        email
       },
       password: {
         required,
@@ -183,11 +267,15 @@ export default {
       try {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
+          "http://localhost:3000" + "/Register",
 
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            firstname: this.form.firstname,
+            lastname: this.form.lastname,
+            country: this.form.country,
+            email: this.form.email,
           }
         );
         this.$router.push("/login");
@@ -214,7 +302,8 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
+        profilePic: ""
       };
       this.$nextTick(() => {
         this.$v.$reset();
