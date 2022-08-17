@@ -15,7 +15,7 @@
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
-  name: "RecipePreviewList",
+  name: "RecipePreviewListLastSeen",
   components: {
     RecipePreview
   },
@@ -28,37 +28,6 @@ export default {
   data() {
     return {
       recipes: []
-    // {
-    //     "id": 638808,
-    //     "title": "Chocolate Almond Bark",
-    //     "readyInMinutes": 45,
-    //     "aggregateLikes": 34,
-    //     "vegetarian": false,
-    //     "vegan": false,
-    //     "glutenFree": true,
-    //     "image": "https://spoonacular.com/recipeImages/638808-556x370.jpg"
-    // },
-    // {
-    //     "id": 665779,
-    //     "title": "Zucchini Ribbon and Ricotta Pizza",
-    //     "readyInMinutes": 45,
-    //     "aggregateLikes": 6,
-    //     "vegetarian": false,
-    //     "vegan": false,
-    //     "glutenFree": false,
-    //     "image": "https://spoonacular.com/recipeImages/665779-556x370.jpg"
-    // },
-    // {
-    //     "id": 637624,
-    //     "title": "Cheesecake Ice-Cream With Mango Syrup",
-    //     "readyInMinutes": 45,
-    //     "aggregateLikes": 18,
-    //     "vegetarian": true,
-    //     "vegan": false,
-    //     "glutenFree": true,
-    //     "image": "https://spoonacular.com/recipeImages/637624-556x370.jpg"
-    // }  
-    //   ]
     };
   },
   mounted() {
@@ -69,7 +38,7 @@ export default {
       try {
         const response = await this.axios.get(
           // this.$root.store.server_domain + "/recipes/random",
-          "http://localhost:3000" + "/recipes/random",
+          "http://localhost:3000" + "/users/lastReceipes",
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 

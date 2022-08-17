@@ -64,20 +64,20 @@ export default {
 </script>
 
 <style scoped>
-.recipe-preview {
+.favorites-preview {
   display: inline-block;
   width: 90%;
   height: 100%;
   position: relative;
   margin: 10px 10px;
 }
-.recipe-preview > .recipe-body {
+.favorites-preview > .favorites-body {
   width: 100%;
   height: 200px;
   position: relative;
 }
 
-.recipe-preview .recipe-body .recipe-image {
+.favorites-preview .favorites-body .favorites-image {
   margin-left: auto;
   margin-right: auto;
   margin-top: auto;
@@ -90,13 +90,13 @@ export default {
   background-size: cover;
 }
 
-.recipe-preview .recipe-footer {
+.favorites-preview .favorites-footer {
   width: 100%;
   height: 50%;
   overflow: hidden;
 }
 
-.recipe-preview .recipe-footer .recipe-title {
+.favorites-preview .favorites-footer .favorites-title {
   padding: 10px 10px;
   width: 100%;
   font-size: 12pt;
@@ -107,7 +107,7 @@ export default {
   text-overflow: ellipsis;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview {
+.favorites-preview .favorites-footer ul.favorites-overview {
   padding: 5px 10px;
   width: 100%;
   display: -webkit-box;
@@ -126,7 +126,7 @@ export default {
   margin-bottom: 0px;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview li {
+.favorites-preview .favorites-footer ul.favorites-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -o-box-flex: 1;
