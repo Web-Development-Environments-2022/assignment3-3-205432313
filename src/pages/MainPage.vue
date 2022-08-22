@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="title">Main Page</h1>
     <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
+    <router-link v-if="IsLogged" to="/login" tag="button">You need to Login to vue this</router-link>
     <!-- {{ !$root.store.username }} -->
     <div v-else>
 
@@ -30,7 +30,14 @@ export default {
   components: {
     RecipePreviewList,
     RecipePreviewListLastSeen
+  },
+  methods: {
+    IsLogged(){
+      console.log(this.$root.store)
+      return this.$root.store.login !==undefined
+    }
   }
+  
 };
 </script>
 

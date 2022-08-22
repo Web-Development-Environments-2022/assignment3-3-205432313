@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <b-form @submit.prevent="onSearch" @reset.prevent="onReset"></b-form>
+    <b-form ></b-form>
+    <!-- @click="onSearch" @reset.prevent="onReset" -->
       <h1 class="title">Search Page</h1>
       <b-form-group
         id="input-group-query"
@@ -30,7 +31,7 @@
         >
           <b-form-select
             id="result_number"
-            v-model="$v.form.result_number.$model"
+            v-model="form.result_number"
             :options="result_options"
             :state="validateState('result_number')"
           ></b-form-select>
@@ -51,7 +52,7 @@
         >
           <b-form-select
             id="cuisine"
-            v-model="$v.form.cuisine.$model"
+            v-model="form.cuisine"
             :options="cuisines"
             :state="validateState('cuisine')"
           ></b-form-select>
@@ -67,7 +68,7 @@
         >
           <b-form-select
             id="Searchdiet"
-            v-model="$v.form.Searchdiet.$model"
+            v-model="form.Searchdiet"
             :options="Diets"
             :state="validateState('Searchdiet')"
           ></b-form-select>
@@ -82,7 +83,7 @@
         >
           <b-form-select
             id="MySort"
-            v-model="$v.form.MySort.$model"
+            v-model="form.MySort"
             :options="sortings"
             :state="validateState('MySort')"
           ></b-form-select>
@@ -96,7 +97,7 @@
         >
           <b-form-select
             id="intolerance"
-            v-model="$v.form.intolerance.$model"
+            v-model="form.intolerance"
             :options="Intolerances"
             :state="validateState('intolerance')"
           ></b-form-select>
@@ -104,14 +105,14 @@
         
         
         
-        <b-button type="reset" variant="danger">Reset</b-button>
+        <!-- <b-button type="reset" variant="danger">Reset</b-button>
         <b-button
           type="submit"
           variant="primary"
           style="width:250px;"
           class="ml-5 w-75"
           >Search</b-button
-        >
+        > -->
         <div class="mt-2">
           You have an account already?
           <router-link to="login"> Log in here</router-link>
@@ -129,6 +130,9 @@
         <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
         <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
       </b-card> -->
+
+      <b-button @click="onSearch">search</b-button>
+      <b-button @click="onReset">Reset</b-button>
 
       <b-container>
         <h3>
@@ -178,7 +182,8 @@ export default defineComponent({
         cuisine: "",
         MySort: "",
         intolerance: "",
-        Searchdiet: ""
+        Searchdiet: "",
+        recipes: []
       },
       result_options: ["5","10","15"],
       types: ['title', ],
@@ -224,27 +229,33 @@ export default defineComponent({
     },
     async Search() {
       try {
+        console.log("Im here");
+        
+        console.log(this.form.query);
         const response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/user/Register",
-          "http://localhost:3000" + "/recipes/search" + "/" + this.query+ "/" + this.result_number+ "/"+  this.MySort+ "/"+ this.cuisine+ "/" +this.intolerance+ "/" +this.Searchdiet 
-
+          "http://localhost:3000/recipes/search" + "/" + this.form.query+ "/" + this.form.result_number+ "/"+  this.form.MySort+ "/"+ this.form.cuisine+ "/" +this.form.intolerance+ "/" +this.form.Searchdiet 
           
         );
+       
+        console.log(response.data);
+
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
+        
         // console.log(response);
       } catch (err) {
-        console.log(error);
+        console.log(err);
       }
     },
     onSearch() {
       // console.log("register method called");
-      this.$v.form.$touch();
-      if (this.$v.form.$anyError) {
-        return;
-      }
-      // console.log("register method go");
+      // this.$v.form.$touch();
+      // if (this.$v.form.$anyError) {
+      //   return;
+      // }
+      console.log("register method go");
       this.Search();
     },
     onReset() {
